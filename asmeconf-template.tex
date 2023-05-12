@@ -643,7 +643,7 @@ The PSO algorithm has several tuning parameters. The two we focused on were the 
 \subsection*{Constraints}
 Our constraints are represented in our problem formulation, equation (\ref{constraint_function}) above. For all our optimizations, we elected to use a penalty function for the constraints. So, every time a constraint is not met, we penalize the NPV by subtracting \$100M. Our Python implementation is shown in listing \ref{constraint_python}.
 
-\begin{lstlisting}[language=Python, caption=Constraint Code, label=constraint_python]
+\begin{lstlisting}[language=Python, caption=Constraint's in Python, label=constraint_python]
     # q_const is the q_inj constraint in 
     # scf/day converted to mcf/year * 
     # 365 days/year * time * num_wells
@@ -661,6 +661,8 @@ Our constraints are represented in our problem formulation, equation (\ref{const
         NPV = -100000000 + NPV
 \end{lstlisting}
 
+\subsection*{Confidence}
+We have a strong belief in the effectiveness of our Particle Swarm Optimization (PSO) model. Its rapid processing ability, along with its comprehensive particle coverage, guarantees that the entire solution space is examined thoroughly. Nevertheless, we are also interested in examining possibilities beyond the predefined constraints of our current parameters to gain additional insights and potential improvements.
 
 %%%%%%%%%%%%% begin table %%%%%%%%%%%%%%%%%
 \begin{table}[!btp]
