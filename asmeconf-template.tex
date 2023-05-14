@@ -121,7 +121,7 @@
 % Change these fields to the right content for your conference.
 % You can comment these out if for some reason you don't want a header.
 % Use title case (first letters capitalized), not all capitals
-
+\texttt{[nofoot]}
 \ConfName{Presented to the MDO teaching team 2023\linebreak In Partial Fulfillment Of the Requirements for the Course\linebreak 16.888 MDO; Multidisciplinary Design Optimization
 }
 %\ConfAcronym{IMECE2023}
@@ -187,8 +187,13 @@
 %%
 %% Abstract should be 200 words or less
 \begin{abstract}
-[TO DO. FILL IN THE ABSTRACT AT THE END.]
-%This paper is an example of and a  {\upshape\LaTeX} template for typesetting ASME conference papers using the {\upshape\texttt{asmeconf}} class. This  {\upshape\LaTeX} template follows ASME guidelines for margins, fonts, headings, captions, and reference formats as of 2022. The class is intended to be used with the {\upshape\texttt{asmeconf.bst} \hologo{BibTeX}} style for reference formatting, which is part of this distribution. The template produces pdfs that contain hyperlinks, bookmarks, and metadata; and references can include the DOI and URL fields. Links may be colored, for online use, or black, for publication. The class enables inline author names, following ASME's current style, but can also produce the traditional grid style. Options include line numbering, final column balancing, various math options, government copyright, and archivability (PDF/A). In addition, section headers may contain mathematics, references, citations, and footnotes. The class is compatible with {\upshape\hologo{pdfLaTeX}} or {\upshape\hologo{LuaLaTeX}}.
+Carbon capture utilization and storage (CCUS) technology is crucial for mitigating greenhouse gas emissions and preventing global warming. Efficient optimization of CCUS projects involving multi-disciplinary and multi-objective problems is essential for a feasible and cost-effective approach. In this project, we present a multi-disciplinary optimization framework involving five essential modules: facilities, pipeline, wells, subsurface, and finance, each accounting for specific parameters and constraints. These modules are integrated using a single objective net present value (NPV) to provide a comprehensive representation of the CCUS system that ultimately helps decision-makers make strategic choices.
+
+Initially, the framework employs a design of experiments to establish a baseline set of solutions. Subsequently, we incorporate a single objective particle swarm optimization (PSO) algorithm and a Sequential Least Squares Programming (SLSQP) optimization. These optimize the parameters of the combined systems and seeks to maximize NPV. PSO allows us to explore the broad problem space and SLSQP offers a quick optimization. 
+
+Lastly, we introduce a multi-objective optimization (MOO) algorithm to maximize NPV and minimize CO2 emissions, effectively balancing environmental and economic considerations. The MOO algorithm provides insight into the trade-offs between competing objectives and alternative design solutions. Decision-makers can easily navigate the Pareto front and select the best compromise solution considering their preferences and constraints. Applying simultaneous optimization also reveals possible synergies between the modules, enabling higher efficiency levels and coordination between the interconnected systems.
+
+In conclusion, we utilized a multi-disciplinary optimization framework involving the DOE, PSO, SLSQP, and MOO algorithms. Our project proposes an integrated approach as a valuable tool to maximize the profitability of CCUS projects, minimize CO2 emissions, and maintain environmental sustainability. This structured and systematic analysis supports stakeholders in the CCUS industries to learn critical insights, optimal decisions, and effective management for technology deployment and infrastructure development.
 \end{abstract}
 
 %%%%%%%%%  NOMENCLATURE (OPTIONAL) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,19 +224,29 @@
 %%%%%%%%%  BODY OF PAPER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction and Motivation}
-CO2 makes up 80\% of greenhouse gas emissions in the US, and its accumulation in the atmosphere is a leading cause of global warming. CO2 is the primary greenhouse gas emitted by anthropogenic sources and according to OurWorldInData.org, humanity produced 37.1 billion tons of carbon dioxide emissions in 2021. ~46\% of US CO2 emissions are produced by electricity generation and industries that use fossil fuel or produce CO2 through chemical reactions (i.e., cement, steel, and petrochemical plants). \cite{EPA_2017}
+Carbon dioxide ($CO_{2}$) makes up 80\% of greenhouse gas emissions in the US, and its accumulation in the atmosphere is a leading cause of global warming. $CO_{2}$ is the primary greenhouse gas emitted by anthropogenic sources and according to OurWorldInData.org, humanity produced 37.1 billion tons of carbon dioxide emissions in 2021. ~46\% of US $CO_{2}$ emissions are produced by electricity generation and industries that use fossil fuel or produce $CO_{2}$ through chemical reactions (i.e., cement, steel, and petrochemical plants). \cite{EPA_2017}
 
-One promising solution to this problem is utilizing Point-Source Capture (PSC) and permanently storing it underground in a process called sequestration. The technology of injecting CO2 into the subsurface is nothing new; oil companies have injected CO2 into depleted hydrocarbon reservoirs for enhanced recovery for decades. It is important to note that this enhanced recovery does little to impact the overall CO2 emissions into the atmosphere, but it does prove that permanent sequestration is technically possible. Two pilot programs in the US were primarily funded by the Department of Energy that tested aspects of CO2 sequestration at a commercial scale. The Petra Nova project, located southwest of Houston, Texas, took CO2 captured from an electric generation station and piped it 81 miles to the West Ranch Oil Field for enhanced oil recovery \cite{Smyth2020}. The Illinois Basin Decatur Project is the second project, and it has successfully injected 1.3 million metric tons of CO2 \cite{IBDP2017}.
+One promising solution to this problem is utilizing Point-Source Capture (PSC) and permanently storing it underground in a process called sequestration. This method captures up to 90\% of $CO_{2}$ emitted in flue gas during combustion processes at large industrial plants. Unlike Direct Air Capture (DAC), this process does not remove $CO_{2}$ from the air, but instead captures it before it is released into the atmosphere in order to lower emissions associated with these industrial plants. The $CO_{2}$ concentration in these flue gasses is much higher than in the ambient air, making the process a more immediately commercial-ready opportunity. \cite{IRA2022}
+
+The technology of injecting $CO_{2}$ into the subsurface is nothing new; oil companies have injected $CO_{2}$ into depleted hydrocarbon reservoirs for enhanced recovery for decades. It is important to note that this enhanced recovery method does little to impact the overall $CO_{2}$ emissions into the atmosphere, but it does prove that permanent sequestration is technically possible. Two pilot programs in the US were primarily funded by the Department of Energy that tested aspects of $CO_{2}$ sequestration at a commercial scale. The Petra Nova project, located southwest of Houston, Texas, took $CO_{2}$ captured from an electric generation station and piped it 81 miles to the West Ranch Oil Field for enhanced oil recovery \cite{Smyth2020}. The Illinois Basin Decatur Project is the second project, and it has successfully injected 1.3 million metric tons of $CO_{2}$ \cite{IBDP2017}.
 
 \section{Opportunity}
-Between 2021 and 2022, an estimated 78 new US carbon capture utilization and storage (CCUS) projects were announced \cite{CCSProjects2023}. While the number of CCUS projects in the planning and evaluation phases has been rising recently, there has been a significant increase in the last year due to the Inflation Reduction Act of 2022 (IRA). Previously the 45Q tax code credited \$50/ton of CO2 that was captured and stored using PSC. With the IRA, the credit has been raised to \$85/ton for PSC-based CCUS projects. This credit value increase has a lot of companies seriously looking at ways to make a commercial-scale CCUS plant viable \cite{IRA2022}. 
+Between 2021 and 2022, an estimated 78 new US carbon capture utilization and storage (CCUS) projects were announced \cite{CCSProjects2023}. While the number of CCUS projects in the planning and evaluation phases has been rising recently, there has been a significant increase in the last year due to the Inflation Reduction Act of 2022 (IRA). Previously the 45Q tax code credited \$50/ton of $CO_{2}$ that was captured and stored using PSC. With the IRA, the credit has been raised to \$85/ton for PSC-based CCUS projects. This credit value increase has a lot of companies seriously looking at ways to make a commercial-scale CCUS plant viable \cite{IRA2022}. 
 
-Due to the capital investment that would be required, even with the IRA credit at \$85/ton of CO2, the margins for making CCUS profitable are going to be narrow. Every function within a total PSC to CCUS system must be optimized for efficiency and cost. This paper uses a multidisciplinary approach to optimize the objectives through simulation and modeling, representing real-world scenarios as closely as possible. 
+Due to the capital investment that would be required, even with the IRA credit at \$85/ton of $CO_{2}$, the margins for making CCUS profitable are going to be narrow. Every function within a total PSC to CCUS system must be optimized for efficiency and cost. This paper uses a multidisciplinary approach to optimize the objectives through simulation and modeling, representing real-world scenarios as closely as possible. 
 
-In 2013 the USGS conducted a CO2 storage resource assessment of the US for potential CCUS reservoirs \cite{USGS2013}. According to their finding, the Coastal plains of Texas, Louisiana, Mississippi, Alabama, and the Florida panhandle have a potential storage capacity of 1,900 Gt of CO2 or about 65\% of all US capacity. This area is also densely populated with electric generation and petrochemical plants, so this region was a prime candidate for this PSC to CCUS optimization problem.
+In 2013 the USGS conducted a $CO_{2}$ storage resource assessment of the US for potential CCUS reservoirs \cite{USGS2013}. According to their finding, the Coastal plains of Texas, Louisiana, Mississippi, Alabama, and the Florida panhandle have a potential storage capacity of 1,900 Gt of $CO_{2}$ or about 65\% of all US capacity. This area is also densely populated with electric generation and petrochemical plants, so this region was a prime candidate for this PSC to CCUS optimization problem.
+
+%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
+%% captions go below figures
+\begin{figure*}[btp]
+\centering\includegraphics[width=0.95\linewidth]{images/Master_Table_v4.jpg}
+\caption{Master Table of design variables, parameters, dependent variables, constraints, and objectives }\label{master_table:1}
+\end{figure*}
+ %%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
 
 \section{Problem Formulation}
-The purpose of this project is to design a system that maximizes the project Net Present Value (NPV) and minimizes the amount of CO2 generated by the point-source compression to supercritical conditions for transportation and injection into the subsurface. The model cumulative injection cannot exceed the reservoir volume capacity, nor can the injection pressure at the bottom of the wellbore exceed the maximum injection pressure set by the pore pressure fracture gradient. These problem objectives and constraints are summarized in equations (\ref{min_obj}) and (\ref{constraint_function}) below, respectively:
+The purpose of this project is to design a system that maximizes the project Net Present Value (NPV) and minimizes the amount of $CO_{2}$ generated by the point-source compression to supercritical conditions for transportation and injection into the subsurface. The model cumulative injection cannot exceed the reservoir volume capacity, nor can the injection pressure at the bottom of the wellbore exceed the maximum injection pressure set by the pore pressure fracture gradient. These problem objectives and constraints are summarized in equations (\ref{min_obj}) and (\ref{constraint_function}) below, respectively:
 \begin{equation} \label{min_obj}
   min\ J(x) = 
   \begin{pmatrix}
@@ -252,42 +267,45 @@ For the design, the team chose to focus on nine key variables. These are summari
 \begin{enumerate}
   \item The system assumes steady-state conditions, constant across the project's life.
   \item The subsurface has been simplified to Darcy's Law, with no change to reservoir pressure over time.
-  \item All compression calculations assume diesel as the fuel type.
+  \item All compression calculations assume natural gas as the fuel type (which causes $CO_{2}$ emissions for our system).
   \item If there are multiple facility tie-ins, it assumes they all converge to one processing facility before entering our system.
   \item No downtime is considered for the system over the 20-year period it is online.
 \end{enumerate}
 
-%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
-%% captions go below figures
-\begin{figure*}[btp]
-\centering\includegraphics[width=0.95\linewidth]{images/Master_Table_v4.jpg}
-\caption{Master Table of design variables, parameters, dependent variables, constraints, and objectives }\label{master_table:1}
-\end{figure*}
- %%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
 
 \section{Modeling and Simulation}
 \subsection{Modules} 
-Each module was separately modeled per the block diagram (Appendix A) and N2 diagram (Appendix B) with standardized coupled variables, which allowed the team to develop the models of each module in parallel and with some modeler autonomy in the equations and techniques used.
+Each module was separately modeled per the simplified block diagram in figure \ref{bd_overlay:1}, which is overlain on a simplified $CO_{2}$ capture and storage system for reference. For more detailed model descriptions, see the block diagram (Appendix A) and N2 diagram (Appendix B) contained in the appendix. Completing the system-level structure allowed the team to develop the models of each module in parallel and with some modeler autonomy in the equations and techniques used.
+
+%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
+\begin{figure}[h!]
+\centering\includegraphics[width=0.99\linewidth]{images/Block_diagram_overlay.jpg}
+\caption{Simplified block diagram of system}\label{bd_overlay:1}
+\end{figure}
+ %%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Facilities}
+%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
+%% captions go below figures
+\begin{figure*}[h!]
+\centering\includegraphics[width=0.4\linewidth]{images/enthalpy_diagram.png}
+\caption{Compress and cool \begin{math}{CO_2} \end{math} to a supercritical state}\label{enthalpy_diagram:1}
+\end{figure*}
+%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
+
+ 
+
+%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
+%% captions go below figures
+\begin{figure*}[h!]
+\centering\includegraphics[width=0.4\linewidth]{images/compression-hx.png}
+\caption{Compressor and heat exchanger layout for each stage in Figure \ref{enthalpy_diagram:1}}\label{comphx:1}
+\end{figure*}
+%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
+ 
 The Facilities module comprised of the release of \begin{math}{CO_2} \end{math} from the sorbent in a point-source capture system, to the outlet of the point-source physical footprint such that the \begin{math}{CO_2} \end{math} has reached a supercritical state before transport in the Pipeline Module. 
 Based on the paper from Jackson et. Al 2018 \cite{jackson_2018}, the team developed equations to represent the changes from the start point to end-state (super critical point). As seen in Figure \ref{enthalpy_diagram:1} and \ref{comphx:1} below, the design of the facilities section considers stages of compressors and heat exchangers to work up from the start point up to the supercritical point. The module uses the design variables to find the most ‘energy efficient pathway’ to the supercritical point. The advantage of operating a CCUS system in a supercritical state is that \begin{math}{CO_2} \end{math} has the density of a liquid, but retains the viscosity of a gas, which enables the system to process \begin{math}{CO_2} \end{math} in a more capitally efficient manner. 
 
-%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
-%% captions go below figures
-\begin{figure*}[h!t]
-\centering\includegraphics[width=0.25\linewidth]{images/enthalpy_diagram.png}
-\caption{Compress and cool \begin{math}{CO_2} \end{math} to a supercritical state}\label{enthalpy_diagram:1}
-\end{figure*}
- %%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
-%% captions go below figures
-\begin{figure*}[h!t]
-\centering\includegraphics[width=0.25\linewidth]{images/compression-hx.png}
-\caption{Compressor and heat exchanger layout for each stage in Figure \ref{enthalpy_diagram:1}}\label{comphx:1}
-\end{figure*}
- %%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
 
 To model \begin{math}{CO_2} \end{math} behavior through a compressor, a polytropic behavior was assumed, and the equation (3) seen below was used. This equation calculates the work required to compress the \begin{math}{CO_2} \end{math} from an inlet state \begin{math}{i} \end{math} to the outlet state \begin{math}{j} \end{math}. The volume and temperature anticipated at the outlet can be calculated using the formula (4) and (5). 
 
@@ -373,9 +391,9 @@ Each cost and emission value from each stage were then aggregated to calculate t
 
 \subsubsection{Pipelines}
 
-The pipeline module takes the final supercritical pressure state from the Facilities module and calculates the pressure drop across the distance of the pipeline. When CO2 drops below the supercritical state, a booster pump is installed to return the CO2 to a supercritical state. 
+The pipeline module takes the final supercritical pressure state from the Facilities module and calculates the pressure drop across the distance of the pipeline. When $CO_{2}$ drops below the supercritical state, a booster pump is installed to return the $CO_{2}$ to a supercritical state. 
 
-Pressure drop is determined by multiple factors such as pipe length and diameter, but it also leverages the fanning coefficient, which calculates the estimated frictional effects using pipe diameter and the Reynolds number (Neutrium).  Since the viscosity used for the Reynolds number can change with state conditions of the CO2, the viscosity is a dynamic formula based on temperature changes (Nave).
+Pressure drop is determined by multiple factors such as pipe length and diameter, but it also leverages the fanning coefficient, which calculates the estimated frictional effects using pipe diameter and the Reynolds number (Neutrium).  Since the viscosity used for the Reynolds number can change with state conditions of the $CO_{2}$, the viscosity is a dynamic formula based on temperature changes (Nave).
 
 \begin{equation}
     \Delta p = 2f\rho_{new}v^2\frac{length_{pipe}}{diameter_pipe}
@@ -396,7 +414,7 @@ Pressure drop is determined by multiple factors such as pipe length and diameter
     \end{array}
 \end{equation}
 
-Costs and emissions associated with the pipeline and compressors leverage the equations below and equations used in the Facilities module.
+Costs and emissions associated with the pipeline and compressors leverage the equations below and equations used in the Facilities module \cite{ogden}.
 
 \begin{equation}
     CAPEX_{pipeline} = \bigg(32.086p_ln_{pc}^{-0.033p_d}\bigg)p_l n_{pc}
@@ -404,7 +422,7 @@ Costs and emissions associated with the pipeline and compressors leverage the eq
 
 \subsubsection{Wells}
 
-Once the CO2 has been delivered from the point source to wellhead, the Wells module calculates the pressure at the reservoir face at the end of the well. Similar to the pipeline module, the well transports the CO2 vertically into the ground through tubing which can be modeled as a pipe. 
+Once the $CO_{2}$ has been delivered from the point source to wellhead, the Wells module calculates the pressure at the reservoir face at the end of the well on a per-well basis. Similar to the pipeline module, the well transports the $CO_{2}$ vertically into the ground through tubing which can be modeled as a pipe \cite{sheng_chapter_2011} \cite{Moody} \cite{IHS}. 
 
 \begin{equation}
     p_{wf}(t) = p_{wh}-\Delta p_f + \rho gD
@@ -419,24 +437,23 @@ Once the CO2 has been delivered from the point source to wellhead, the Wells mod
 \end{equation}
 
 \begin{equation}
-    Re = \frac{1988\rho VD}{\mu}
+    Re = \frac{1488\rho VD}{\mu}
 \end{equation}
 
-The cost per well can be seen below:
+The cost per well was based on an empirical study of drilling costs for $CO_{2}$ injection wells based on well depth as seen in equation \ref{wellcost} below \cite{ogden}:
+\begin{equation} \label{wellcost}
+    CAPEX_{well} = (-3.9*10^{-8}D^3 + 4.00*10^{-4}D^2 - 0.84D + 903)D
+\end{equation}
 
 \subsubsection{Subsurface}
 
-The Subsurface module then determines the volumetric flowrate of CO2 entering the reservoir given the bottom hole pressure derived from the Well module, and the static reservoir pressure. The formula used below is derived from reservoir engineering principles for a gas injection well (NEED SOURCE).
+The Subsurface module then determines the volumetric flow rate of $CO_{2}$ entering the reservoir given the bottom hole pressure derived from the Wells module, and the static reservoir pressure. The formula used below is derived from reservoir engineering principles for a gas injection well \cite{AAPG}.
 
 \begin{equation}
     q_g = \frac{0.703kh(p_{R}^{2}-p_{wf}^{2})}{T\mu_{g}Z[ln(\frac{r_e}{r_w})-0.75+s]}
 \end{equation}
 
-
-While this module was simplified in terms of fluid dynamics and geomechanics given the time constraints of the class, a constraint was applied to ensure that the total volume injected doesn’t exceed the total volume of the target reservoir. The target reservoir was estimated to have a volume of XXXXXXXXXXX, determined by estimating the pore volume of XXXXXXXXXX reservoir that research has identified as a suitable target (how did you pick the reservoir)
-The equation for calculating pore volume
-
-
+While this module was simplified in terms of fluid dynamics and geomechanics, given the time constraints of the class, a constraint was applied to ensure that the total volume injected does not exceed the total volume of the target reservoir. The Frio Formation along the Coastal Plains of Texas was selected as the target reservoir for this simulation. According to the USGS National Assessment of Geologic Carbon Dioxide Storage Resources, the Frio Formation has a P50 storage probability estimate of 87,000 Megatons of $CO_{2}$ \cite{USGS2013}. An additional constraint was added to this module to ensure that the pressure at the bottom of the well did not exceed the maximum injection pressure. The maximum injection pressure is determined by the reservoir pore pressure fracture gradient. Again using the Frio Formation as the target, we used data from a reservoir model generated by Ghomian et al. 2006, for the pore pressure fracture gradient, formation depth, and maximum injection pressure parameter \cite{ghomian_reservoir_2008}. 
 
 \subsubsection{Finance}
 The finance module ultimately provides the primary objective output: NPV. It calculates the revenue, total CAPEX, annual CAPEX, and annual OPEX to keep the system online over its lifetime. From this, it can calculate the upfront capital spend at time 0 along with the annual cashflow. The annual cashflow is then discounted and summed over the life of the project to generate the net present value. The critical equation for this module is as follows:
@@ -687,11 +704,11 @@ Swarm Size & Number of Iterations & NPV \\
 
 
 \section{Multi-Objective Optimization}
-To implement the Multi-Objective Optimization (MOO) capabilities into our project we started off by investing several MOO frameworks that have been built in Python. We looked at a number of optimizer tools but ultimately settled on using PyMOO \cite{Blank2020}. We started off incorporating PyMOO by first creating a copy of both our Single Objective Optimizer (Optimzer_ldfo.py) and our experimentation module (Main.py). We then modified the Optimizer to incorporate a function call to the PyMOO plugin. We then modified the Main module (now called Main_MOO.py) to return two outputs (NPV and CAPEX). The new Main_MOO module was further updated to append to a .csv file specific information about each iteration through the optimizer. This information included the design vector requested by the optimizer, as well as the resulting NPV, CAPEX, CO2 generated, and CO2 injected. This allowed us to track the progress of the optimizer as it marched from an initial design vector starting point provided by the team towards its ultimate "optimal solution". 
+To implement the Multi-Objective Optimization (MOO) capabilities into our project we started off by investing several MOO frameworks that have been built in Python. We looked at a number of optimizer tools but ultimately settled on using PyMOO \cite{Blank2020}. We started off incorporating PyMOO by first creating a copy of both our Single Objective Optimizer (Optimzer_ldfo.py) and our experimentation module (Main.py). We then modified the Optimizer to incorporate a function call to the PyMOO plugin. We then modified the Main module (now called Main_MOO.py) to return two outputs (NPV and CAPEX). The new Main_MOO module was further updated to append to a .csv file specific information about each iteration through the optimizer. This information included the design vector requested by the optimizer, as well as the resulting NPV, CAPEX, $CO_{2}$ generated, and $CO_{2}$ injected. This allowed us to track the progress of the optimizer as it marched from an initial design vector starting point provided by the team towards its ultimate "optimal solution". 
 
 Once the modules were updated to incorporate the PyMOO framework we decided to look at two methods of performing MOO's. The first was the Non-Dominated Sorting Genetic Algorithm (NSGA-2) and the second was the S-Metric Evolutionary Multi-Objective Optimization Algorithms (SMS-EMOA). 
 
-As mentioned, the first method we used to analyze our problem set was the NSGA-2 method. This method involved importing the algorithm from the PyMOO framework and providing execution parameters for the algorithm to adhere to. Our team performed a small sensitivity analysis to better understand how changing these parameters affected the algorithm's optimal solution. We ultimately decided to investigate the solution results and number of iterations required to perform the algorithm based upon: population size, mutation rate, cutoff, and number of offspring. The results from this investigation can be seen in Figure \ref{NSGA:1}. After running the initial sensitivity analysis we decided to take the two best results, and combine them to see if the resulting parameters would yield a beneficial result. It turns out in this case that combining mutation rate and number of offspring did yield a better end result than changing any one single parameter. The number of iterations required to perform these calculations ranged between 1380 and 2550 iterations.
+As mentioned, the first method we used to analyze our problem set was the NSGA-2 method. We chose to use a heuristic algorithm as our model was not well suited for a gradient-based approach.  Using NSGA-2 involved importing the algorithm from the PyMOO framework and providing execution parameters for the algorithm to adhere to. Our team performed a small sensitivity analysis to better understand how changing these parameters affected the algorithm's optimal solution. We ultimately decided to investigate the solution results and number of iterations required to perform the algorithm based upon: population size, mutation rate, cutoff, and number of offspring. The results from this investigation can be seen in Figure \ref{NSGA:1}. After running the initial sensitivity analysis we decided to take the two best results, and combine them to see if the resulting parameters would yield a beneficial result. It turns out in this case that combining mutation rate and number of offspring did yield a better end result than changing any one single parameter. The number of iterations required to perform these calculations ranged between 1380 and 2550 iterations.
 
 %%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
 
@@ -704,7 +721,20 @@ As mentioned, the first method we used to analyze our problem set was the NSGA-2
 
 %%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
 
-Next, we looked at the SMS-EMOA algorithm to see how it performed compared to the NSGA-2 and single objective optimization methods. In this case we ran the algorithm with the default parameters, while using the same initial starting design vector as was used with NSGA-2. In this case the SMS-EMOA method found a better MOO optimum than the NSGA-2 method t. It's worth noting, however, that the SMS-EMOA required over 21 times the number of iterations to complete the optimization process. The end result and number of iterations through the optimizer can be seen in Table \ref{EMOA:1}. It's also worth noting that the results of the SMS-EMOA method include very small changes in the design vector fed back into the experimentation module. These steps are extraordinarily small and from a practicality standpoint may be overcome by system noise or other  limitations such as manufacturing quality, sensor limitations, or control system limitations. If factors such as these are not applicable to the given problem, then SMS-EMOA may be a desirable algorithm to use. The number of iterations required to perform this optimization method was 60,051 iterations. This was a staggering 23.5 times the worst-case iterations required for the NSGA-2 algorithm.   
+Next, we looked at the SMS-EMOA algorithm to see how it performed compared to the NSGA-2 and single objective optimization methods. In this case we ran the algorithm with the default parameters, while using the same initial starting design vector as was used with NSGA-2. In this case the SMS-EMOA method found a better MOO optimum than the NSGA-2 method t. It's worth noting, however, that the SMS-EMOA required over 21 times the number of iterations to complete the optimization process. The end result and number of iterations through the optimizer can be seen in Table \ref{EMOA:1}. It's also worth noting that the results of the SMS-EMOA method include very small changes in the design vector fed back into the experimentation module. These steps are extraordinarily small and from a practicality standpoint may be overcome by system noise or other limitations such as manufacturing quality, sensor limitations, or control system limitations. If factors such as these are not applicable to the given problem, then SMS-EMOA may be a desirable algorithm to use. The number of iterations required to perform this optimization method was 60,051 iterations. This was a staggering 23.5 times the worst-case iterations required for the NSGA-2 algorithm.   
+
+A comparison of the two algorithm's Pareto Fronts can be seen in Figure \ref{ParetoCompare:1}.  Both algorithms trended towards an optimal solution with only a single connection in the design vector as this minimized pressure loss experienced through the Pipeline module. Pressure loss requires the system to re-pressurize the CO2 before it can be injected so the higher the number of connections, the more pressure will be lost, and the more compressors will be required by the system.  As compressors are expensive to purchase and generate CO2, the algorithms favor fewer connections with one connection being the lowest achievable value.  Ultimately, both algorithms chose shorter pipe lengths, larger pipe diameters, and the minimum number of connections.  These three choices reduce the overall pressure loss experienced by the system.  
+
+%%%%%%%%%%%%% begin figure %%%%%%%%%%%%%%%%%
+
+%% captions go below figures
+
+\begin{figure*}[btp]
+\centering\includegraphics[width=0.7\linewidth]{images/ParetoComparison.jpg}
+\caption{Comparison of Pareto Fronts between the Non-Dominated Sorting Genetic Algorithm (NSGA-2) and S-Metric Evolutionary Multi-Objective Optimization Algorithms (SMS-EMOA)}\label{ParetoCompare:1}
+\end{figure*}
+
+%%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%% begin table %%%%%%%%%%%%%%%%%
 \begin{table}[btp]
@@ -724,7 +754,7 @@ NSGA-2 & \$42.04M &  \$788.36M \\
 
 %%%%%%%%%%%%% end table %%%%%%%%%%%%%%%%%%%
 \section{Final Recommendation}
-Focusing on the CAPEX positive side of the results, there are many design options along the Pareto Front (Figure \ref{Final Recommendation}). There are tradeoffs to consider when selecting the optimal solution because the system's efficiency is in tension with the maximum value. Looking at the total efficiency of the system's ability is critical, balancing CO2 injection as well as CO2 generation. Table \ref{Options_Table}, illustrates that for the lower CO2 generated per year from Option 3, there is a decrease in CAPEX of \$12.45 MM. Focusing on CAPEX alone and selecting Option 1 will increase the CO2 generated per year by 73 MMT. Neither is an ideal solution, but Option 2 is a fair compromise that balances the system options. 
+Focusing on the CAPEX positive side of the results, there are many design options along the Pareto Front (Figure \ref{Final Recommendation}). There are tradeoffs to consider when selecting the optimal solution because the system's efficiency is in tension with the maximum value. Looking at the total efficiency of the system's ability is critical, balancing $CO_{2}$ injection as well as $CO_{2}$ generation. Table \ref{Options_Table}, illustrates that for the lower $CO_{2}$ generated per year from Option 3, there is a decrease in CAPEX of \$12.45 MM. Focusing on CAPEX alone and selecting Option 1 will increase the $CO_{2}$ generated per year by 73 MMT. Neither is an ideal solution, but Option 2 is a fair compromise that balances the system options. 
 
 More importantly, the optimization model is a valuable tool that can assist with evaluating, prospecting, and planning a commercial-scale CCUS plant. Leveraging this tool will allow businesses to assess commercial agreements, permitting request needs, and contract negotiations. Once that preparation work has been done, the tool can also be used as a communication device between the multiple functions that will plan and execute the building, construction, designing, drilling, and monitoring, by demonstrating how design choices in each of these functions will impact the results. Abstractly, this optimization model is similar to a digital twin of a CCUS plant; it can be utilized to align the stakeholder network towards a common goal. 
 
@@ -750,22 +780,21 @@ Reaching the end of this project, the team has greatly enhanced their understand
 \subsection{Learnings}
 Working through this project has been an incredible learning opportunity for the team. Not only did it allow us to practice what we were learning in class with a real-world application, but it also gave us a much deeper understanding of the CCUS ecosystem. The project team had varying levels of adjacent experience in this space, but it was generally fairly new to us all.
 
-One key learning we had on the CCUS front was the value of compressing the CO2 at the point-source capture facility before transporting it to the well and injecting it. The first iteration of our model did not have this sequence and instead transported it at ambient conditions and compressed it at the well site. However, once we compressed it before transporting it, we found the supercritical fluid properties (density and viscosity in particular) were much more ideal for transport, and the NPV of the system improved accordingly. Upon additional research, we found that this is the preferred way of transporting CO2 per the literature.
+One key learning we had on the CCUS front was the value of compressing the $CO_{2}$ at the point-source capture facility before transporting it to the well and injecting it. The first iteration of our model did not have this sequence and instead transported it at ambient conditions and compressed it at the well site. However, once we compressed it before transporting it, we found the supercritical fluid properties (density and viscosity in particular) were much more ideal for transport, and the NPV of the system improved accordingly. Upon additional research, we found that this is the preferred way of transporting $CO_{2}$ per the literature.
 
-Another important learning for the team was the value of designing for flexibility within the code itself. One team member recommended early on that we create separate files and functions for each module to allow for better collaborative coding and maximum flexibility if we needed to change things throughout the project. When we learned about the supercritical CO2 properties described in the previous paragraph halfway through the semester, this structure in our code made it very simple to switch the sequence of the pipelines and facilities modules within our model. We imagine in real life things like this could come up regularly or there may be a desire to test things like this, and a model architecture that considers this upfront can be very beneficial.
+Another important learning for the team was the value of designing for flexibility within the code itself. One team member recommended early on that we create separate files and functions for each module to allow for better collaborative coding and maximum flexibility if we needed to change things throughout the project. When we learned about the supercritical $CO_{2}$ properties described in the previous paragraph halfway through the semester, this structure in our code made it very simple to switch the sequence of the pipelines and facilities modules within our model. We imagine in real life things like this could come up regularly or there may be a desire to test things like this, and a model architecture that considers this upfront can be very beneficial.
 
-Finally, we found that some optimization methods (i.e. SMS-EMOA) can generate very precise solutions but at very high computational costs.  For some applications these solutions may be so precise that they ultimately be infeasible from an execution standpoint.  As an example, maintaining a system pressure within fractions of a PSI (pounds per square inch) may be infeasible for some systems.
+Finally, we found that some optimization methods (i.e. SMS-EMOA) can generate very precise solutions but at very high computational costs.  For some applications, these solutions may be so precise that they ultimately can be infeasible from an execution standpoint.  As an example, maintaining a system pressure within fractions of a PSI (pounds per square inch) may be infeasible for some systems.
 
-*******************FINAL LEARNING ON OPTIMIZATION METHOD *******************
 
 \subsection{Future Work}
 Due to the short time frame of the course, the team had to utilize simplified versions of several modules. As discussed in the problem formulation section, this meant making many upfront assumptions to keep the project scope manageable for a classroom setting. However, if given more time the model could be greatly improved by incorporating these more rigorous techniques.
 
-One such improvement would be to connect our optimizer to a dynamic reservoir simulation model rather than the simplified Darcy's Law equation for the subsurface module. This would allow us to model changes to the pressure in the reservoir as the CO2 is injected and more accurately predict backpressure on the system that would impact injection rates. In reality, we would expect injection rates to decline at some rate over time due to this phenomenon that is currently not accounted for in our system.
+One such improvement would be to connect our optimizer to a dynamic reservoir simulation model rather than the simplified Darcy's Law equation for the subsurface module. This would allow us to model changes to the pressure in the reservoir as the $CO_{2}$ is injected and more accurately predict backpressure on the system that would impact injection rates. In reality, we would expect injection rates to decline at some rate over time due to this phenomenon that is currently not accounted for in our system.
 
-The next future improvement would be to model the point-source capture facility distances and CO2 capture rates on a facility-by-facility basis, as opposed to the regional average assumptions we included in this iteration of the model. This would enable us to test each facility discretely in our system to optimize which one(s) we would want to partner with.
+The next future improvement would be to model the point-source capture facility distances and $CO_{2}$ capture rates on a facility-by-facility basis, as opposed to the regional average assumptions we included in this iteration of the model. This would enable us to test each facility discretely in our system to optimize which one(s) we would want to partner with.
 
-Another important future improvement would be to test the incorporation of renewable energy sources into the model to minimize CO2 emissions during compression. The current version of the model indicates that we would emit more CO2 during compression than we would actually store, which defeats the purpose of the system. Some of this may be due to the assumptions made in our facilities module but is certainly worth investigating further with experts regardless.
+Another important future improvement would be to test the incorporation of renewable energy sources into the model to minimize $CO_{2}$ emissions during compression. The current version of the model indicates that we would emit more $CO_{2}$ during compression than we would actually store, which defeats the purpose of the system. Some of this may be due to the assumptions made in our facilities module but is certainly worth investigating further with experts regardless. An example worth investigating would be electrifying compression, the predominant emission source in our model. One could tentatively use the average grid emission intensity and re-evaluate the ability to make a net-negative system.
 
 Finally, expanding some of our bounds for our decision variables could lead to better results. We made the decision to cap the number of wells for this study to twenty to keep CAPEX in a reasonable range. However, it might be useful for the decision-maker to know what the true optimum would be in the system if CAPEX were not a constraint. Another version of the study that greatly expands the number of wells allowed but includes minimizing CAPEX as a third objective could help visualize this tension on the tradespace. It also could enhance the value of tie-ing in multiple facilities, since all of our high NPV results currently only included one facility connection.
 
@@ -803,7 +832,7 @@ We are encouraged by this first multidisciplinary optimization problem and look 
 %\caption{N2 diagram}\label{n2_diagram:1}
 %\end{figure*}
  %%%%%%%%%%%%% end figure %%%%%%%%%%%%%%%%%%%
-
+\texttt{[nofoot]}
 
 %%%%%%%%%  Under here are resources to use to build images and tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
