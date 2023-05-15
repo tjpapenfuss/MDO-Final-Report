@@ -1006,7 +1006,7 @@
 \fancyfoot{}
 \fancyhead{}
 \fancyfoot[CE,CO]{\@SetFont\thepage}% force encoding so that passages in some languages won't switch footer font from the main font.
-\fancyfoot[RO,RE]{\@SetFont Copyright~\textcopyright~\the\year\ by ASME}
+\fancyfoot[RO,RE]{\@SetFont Copyright~\textcopyright~\the\year\ by MIT}
 \renewcommand{\headrulewidth}{0pt} 
 \renewcommand{\footrulewidth}{0pt}
 
